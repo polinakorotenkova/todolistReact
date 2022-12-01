@@ -22,7 +22,7 @@ function ToDos(){
 
 
     <div>
-      <AddToDo />
+      <AddToDo fillTodos={fillTodos} />
       {todos.map((todo)=>{
         return <ToDo key={todo.id} toDo={todo} fillTodos={fillTodos} />
       })}
