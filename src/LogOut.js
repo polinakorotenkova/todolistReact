@@ -8,7 +8,6 @@ function LogOut(){
   let navigate = useNavigate();
 
   function logOut() {
-    console.log(1)
   localStorage.removeItem('token');
   navigate("/login");
   }

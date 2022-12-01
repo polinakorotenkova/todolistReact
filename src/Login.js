@@ -21,8 +21,6 @@ function Login() {
         if (data.token) {
           localStorage.setItem('token', data.token);
           navigate("/index")
-        } else {
-          console.log(1);
         }
       });
     });

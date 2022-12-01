@@ -15,7 +15,6 @@ function ToDos(){
   useEffect(()=>{
    fillTodos()
   },[])
-  console.log(todos)
    return (
     <div className='center'>
     <h1>Список дел</h1>
