@@ -1,16 +1,17 @@
-import logo from './logo.svg';
+import Router from './Router';
+import AddToDo from './Add';
 import './App.css';
+import Login from './Login';
+import Registration from './Registration';
+import Title from './ToDos';
+import LoginOut from './LogOut';
 
 function App() {
   return (
-    <div className="vhod">
-      <input type="text" className="login" placeholder="введите логин" /><br />
-      <input type="text"className="password" placeholder="введите пароль" /><br />
-      <button className="buttonLogin"> Войти </button>
-      <br />
-        <a className="registrationLink" href="./registration.html">Зарегистрироваться</a>
-      <br />
-    </div>
+    <Router></Router>
+    //<Registration></Registration>
+   //<Login></Login>
+   //<AddToDo></AddToDo>
   );
 }
 
