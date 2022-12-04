@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { doneTodo } from './doneTodo'
+import { saveTodo } from './saveTodo'
+import { deleteTodo } from './deleteTodo'
 
 function ToDo(props) {
   const [textToDo, setTextToDo] = useState(props.toDo.text)
@@ -8,27 +11,13 @@ function ToDo(props) {
   const token = localStorage.getItem('token');
 
   const onDoneClick = () => {
-    fetch('http://127.0.0.1:2000/change', {
-      method: 'put',
-      headers: {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: props.toDo.id, isDone: !props.toDo.is_done }),
-    }).then(() => {
+    doneTodo(props.toDo.id, !props.toDo.is_done).then(() => {
       props.fillTodos()
     })
   }
 
   const onSaveClick = () => {
-    fetch('http://127.0.0.1:2000/change', {
-      method: 'put',
-      headers: {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: props.toDo.id, text: textToDo }),
-    }).then(() => {
+    saveTodo(props.toDo.id, textToDo).then(() => {
       props.fillTodos()
       setIsEditing(false)
     })
@@ -40,13 +29,7 @@ function ToDo(props) {
   }
 
   const onDeleteClick = () => {
-    fetch('http://127.0.0.1:2000/delete', {
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      body: JSON.stringify({ id: props.toDo.id }),
-    }).then(() => {
+    deleteTodo(props.toDo.id).then(() => {
       props.fillTodos()
     })
   }
@@ -55,7 +38,7 @@ function ToDo(props) {
     <>
       <input className="redaktirovanie" onChange={(event) => setTextToDo(event.target.value)} value={textToDo} />
       <button className="otmena" onClick={onCancelClick}>Отмена</button>
-      <button className="save"  onClick={onSaveClick}>Сохранить</button>
+      <button className="save" onClick={onSaveClick}>Сохранить</button>
     </>
   ) : (
     <>

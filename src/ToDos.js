@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import AddToDo from './Add';
 import LogOut from './LogOut';
 import ToDo from './ToDo';
-import { getToDos } from './getToDos';
+import { getToDos } from './getTodos';
 
 function ToDos(){
   const fillTodos = () => {

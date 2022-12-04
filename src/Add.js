@@ -4,22 +4,15 @@ import {
   Link,
   useNavigate
 } from 'react-router-dom';
+import { addTodo } from './addTodo';
 const token = localStorage.getItem('token');
-
 
 function AddToDo(props) {
   const [textToDo, setTextToDo] = useState('')
-  async function addToDo(e) {
+  async function onAddTodo(e) {
     e.preventDefault()
     if (textToDo !== '') {
-      return fetch('http://127.0.0.1:2000/addtodos', {
-        method: 'post',
-        headers: {
-          Authorization: token,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ isDone: false, text: textToDo }),
-      }).then((response) => {
+      addTodo(textToDo).then((response) => {
         props.fillTodos()
         setTextToDo('')
       });
@@ -27,7 +20,7 @@ function AddToDo(props) {
   }
 
   return <div>
-    <form onSubmit={addToDo}>
+    <form onSubmit={onAddTodo}>
       <input className='to-do-input' value={textToDo} onChange={(event) => setTextToDo(event.target.value)} placeholder='добавьте задачу' />
       <button type="submit" className='add'> добавить</button>
     </form>
