@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { doneTodo } from './doneTodo'
 import { saveTodo } from './saveTodo'
 import { deleteTodo } from './deleteTodo'
+import { useDispatch } from 'react-redux';
 
 function ToDo(props) {
+  const dispatch = useDispatch()
   const [textToDo, setTextToDo] = useState(props.toDo.text)
   const [isEditing, setIsEditing] = useState(false)
   const zacherkivanie = props.toDo.is_done ? 'zacherkivanie' : ''
@@ -11,16 +13,20 @@ function ToDo(props) {
   const token = localStorage.getItem('token');
 
   const onDoneClick = () => {
-    doneTodo(props.toDo.id, !props.toDo.is_done).then(() => {
-      props.fillTodos()
-    })
+    dispatch({type:'CHANGE_TODO', payload: {index: props.index, todo:{text:props.toDo.text, is_done:!props.toDo.is_done}}})
+
+    // doneTodo(props.toDo.id, !props.toDo.is_done).then(() => {
+    //   props.fillTodos()
+    // })
   }
 
   const onSaveClick = () => {
-    saveTodo(props.toDo.id, textToDo).then(() => {
-      props.fillTodos()
-      setIsEditing(false)
-    })
+    dispatch({type:'CHANGE_TODO', payload: {index: props.index, todo:{text:textToDo}}})
+    setIsEditing(false)
+
+    // saveTodo(props.toDo.id, textToDo).then(() => {
+    //   props.fillTodos()
+    // })
   }
 
   const onCancelClick = () => {
@@ -29,9 +35,10 @@ function ToDo(props) {
   }
 
   const onDeleteClick = () => {
-    deleteTodo(props.toDo.id).then(() => {
-      props.fillTodos()
-    })
+    dispatch({type:'DELETE_TODO', payload: props.index})
+    // deleteTodo(props.toDo.id).then(() => {
+    //   props.fillTodos()
+    // })
   }
 
   const content = isEditing ? (

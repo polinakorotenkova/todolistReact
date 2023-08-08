@@ -1,29 +1,33 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
-import AddToDo from './Add';
+import AddToDo from './AddToDo';
 import LogOut from './LogOut';
 import ToDo from './ToDo';
 import { getToDos } from './getTodos';
+import { useSelector } from 'react-redux';
 
 function ToDos(){
-  const fillTodos = () => {
-    getToDos().then(function(value){
-      setTodos(value)
-    })
-  }
-  const [todos, setTodos] = useState([])
-  useEffect(()=>{
-   fillTodos()
-  },[])
+  const toDos = useSelector(state => state.toDos)
+ 
+
+  // const fillTodos = () => {
+  //   getToDos().then(function(value){
+  //     setTodos(value)
+  //   })
+  // }
+ // const [todos, setTodos] = useState([])
+  // useEffect(()=>{
+  //  fillTodos()
+  // },[])
    return (
     <div className='center'>
     <h1>Список дел</h1>
 
 
     <div>
-      <AddToDo fillTodos={fillTodos} />
-      {todos.map((todo)=>{
-        return <ToDo key={todo.id} toDo={todo} fillTodos={fillTodos} />
+      <AddToDo  />
+      {toDos.map((todo, index)=>{
+        return <ToDo key={todo.id} toDo={todo} index={index} />
       })}
 
        <LogOut />
