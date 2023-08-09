@@ -15,6 +15,10 @@ export function reducer(state =initialState, action) {
   const toDos = state.toDos.map((todo,index)=> index===action.payload.index?action.payload.todo:todo)
   return {...state,toDos}}
 
+  case 'FILL_TODOS':{
+    return {...state, toDos: action.payload}
+  }
+
   default: return state
  }
 }

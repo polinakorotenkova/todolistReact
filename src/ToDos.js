@@ -4,21 +4,24 @@ import AddToDo from './AddToDo';
 import LogOut from './LogOut';
 import ToDo from './ToDo';
 import { getToDos } from './getTodos';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ToDos(){
   const toDos = useSelector(state => state.toDos)
+  const dispatch = useDispatch()
  
 
-  // const fillTodos = () => {
-  //   getToDos().then(function(value){
-  //     setTodos(value)
-  //   })
-  // }
- // const [todos, setTodos] = useState([])
-  // useEffect(()=>{
-  //  fillTodos()
-  // },[])
+  const fillTodos = () => {
+    getToDos().then((value)=>{
+      dispatch ({type: 'FILL_TODOS', payload:value})
+    })
+  }
+
+
+//  const [todos, setTodos] = useState([])
+  useEffect(()=>{
+   fillTodos()
+  },[])
    return (
     <div className='center'>
     <h1>Список дел</h1>

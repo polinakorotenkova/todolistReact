@@ -11,20 +11,16 @@ const token = localStorage.getItem('token');
 function AddToDo(props) {
   const dispatch = useDispatch()
   const [textToDo, setTextToDo] = useState('')
-  // async function onAddTodo(e) {
-  //   e.preventDefault()
-  //   if (textToDo !== '') {
-  //     addTodo(textToDo).then((response) => {
-  //       props.fillTodos()
-  //       setTextToDo('')
-  //     });
-  //   }
-  // }
+  async function onAddTodo(e) {
+    e.preventDefault()
+    if (textToDo !== '') {
+      addTodo(textToDo).then((response) => {
+        dispatch({type:'ADD_TODO', payload:{text:textToDo} })
+        setTextToDo('')
+      });
+    }
+  }
 
-function onAddTodo(e){
-  e.preventDefault()
-  dispatch({type:'ADD_TODO', payload: {text:textToDo}})
-}
 
   return <div>
     <form onSubmit={onAddTodo}>

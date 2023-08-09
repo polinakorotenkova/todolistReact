@@ -13,20 +13,18 @@ function ToDo(props) {
   const token = localStorage.getItem('token');
 
   const onDoneClick = () => {
-    dispatch({type:'CHANGE_TODO', payload: {index: props.index, todo:{text:props.toDo.text, is_done:!props.toDo.is_done}}})
-
-    // doneTodo(props.toDo.id, !props.toDo.is_done).then(() => {
-    //   props.fillTodos()
-    // })
+    doneTodo(props.toDo.id, !props.toDo.is_done).then(() => {
+      dispatch({type:'CHANGE_TODO', payload: {index: props.index, todo:{text:props.toDo.text, id:props.toDo.id, is_done:!props.toDo.is_done}}})
+    })
   }
 
   const onSaveClick = () => {
-    dispatch({type:'CHANGE_TODO', payload: {index: props.index, todo:{text:textToDo}}})
-    setIsEditing(false)
+    saveTodo(props.toDo.id, textToDo).then(() => {
+      dispatch({type:'CHANGE_TODO', payload: {index: props.index, todo:{text:textToDo, id:props.toDo.id, is_done: props.toDo.is_done}}})
+      setIsEditing(false)
 
-    // saveTodo(props.toDo.id, textToDo).then(() => {
-    //   props.fillTodos()
-    // })
+    })
+
   }
 
   const onCancelClick = () => {
@@ -35,10 +33,9 @@ function ToDo(props) {
   }
 
   const onDeleteClick = () => {
-    dispatch({type:'DELETE_TODO', payload: props.index})
-    // deleteTodo(props.toDo.id).then(() => {
-    //   props.fillTodos()
-    // })
+    deleteTodo(props.toDo.id).then(() => {
+      dispatch({type:'DELETE_TODO', payload: props.index})
+    })
   }
 
   const content = isEditing ? (
